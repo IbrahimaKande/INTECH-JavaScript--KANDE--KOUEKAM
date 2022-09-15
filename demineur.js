@@ -1,6 +1,7 @@
 let x = 0;
 let y = 0;
 let nb_mine = 0;
+let level = '';
 
 let terrain 	= new Array();
 let affTerrain 	= new Array();
@@ -24,9 +25,10 @@ let COULEUR_CHIFFRE = "#beffc0";
  *	Permet d'initialiser le terrain de jeu
  */
 let changerTerrain = function(){
-	x = document.getElementById("x").value;
-	y = document.getElementById("y").value;
-	nb_mine	= document.getElementById("nb_mine").value;
+  level = document.getElementById("level").value;
+  if(level == 'facile'){x = 10; y = 10; nb_mine = 5}
+  if(level == 'moyen'){x = 15; y = 15; nb_mine = 10}
+  if(level == 'difficile'){x = 25; y = 25; nb_mine = 15}
 	
 	for(let i = 0; i < x; i++){
 		terrain[i] 		= new Array();
@@ -35,10 +37,10 @@ let changerTerrain = function(){
 	
 	let dessin = true;
 	
-	if(parseInt(x) == NaN || x <= 0 || x > 11 || parseInt(y) == NaN || y <= 0 || y > 11 || parseInt(nb_mine) == NaN || nb_mine <= 0){
+	/*if(parseInt(x) == NaN || x <= 0 || x > 11 || parseInt(y) == NaN || y <= 0 || y > 11 || parseInt(nb_mine) == NaN || nb_mine <= 0){
 		alert("Entrez des infos correctes, svp");
 		dessin = false;
-	}
+	}*/
 	
 	if(nb_mine > parseInt(x) * parseInt(y)){
 		alert("Tu peux pas avoir plus de mines que la taille max du plateau");
@@ -89,7 +91,7 @@ let clicBoutonAux = function(cx, cy){
 		console.log(cx + "" + cy);
 		
 		// ... et si la case courante n'a aucune bombe autour d'elle...
-		if(terrain[cx][cy] == 0){
+		if(terrain[cx][cy] == VIDE){
 			// ... on regarde celle d'au-dessus...
 			clicBoutonAux(cx-1, cy);
 			
