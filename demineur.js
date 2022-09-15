@@ -34,7 +34,7 @@ let COULEUR_CHIFFRE = "#beffc0";
  *	Permet d'initialiser le terrain de jeu
  */
 let changerTerrain = function(){
-	x 		= document.getElementById("x").value;
+	let x 		= document.getElementById("x").value;
 	y 		= document.getElementById("y").value;
 	nb_mine	= document.getElementById("nb_mine").value;
 	
