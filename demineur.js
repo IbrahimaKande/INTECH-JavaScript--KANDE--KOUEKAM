@@ -7,11 +7,6 @@ let affTerrain 	= new Array();
 
 let continuerJeu = false;
 
-/**
- *	==========================
- *	======= CONSTANTES =======
- *	==========================
- */
 let DEFAUT 			= "N";
 let CLICK_GAUCHE 	= "G";
 let CLICK_DROIT 	= "D";
@@ -26,16 +21,11 @@ let COULEUR_DRAPEAU = "#87c4c2";
 let COULEUR_CHIFFRE = "#beffc0";
 
 /**
- *	=============================
- *	========= FONCTIONS =========
- *	=============================
- */
-/**
  *	Permet d'initialiser le terrain de jeu
  */
 let changerTerrain = function(){
-	x 		= document.getElementById("x").value;
-	y 		= document.getElementById("y").value;
+	x = document.getElementById("x").value;
+	y = document.getElementById("y").value;
 	nb_mine	= document.getElementById("nb_mine").value;
 	
 	for(let i = 0; i < x; i++){
@@ -286,11 +276,7 @@ let testGagne = function(){
 	continuerJeu = false;
 }
 
-/**
- *	=================================
- *	===== Chargement du terrain =====
- *	=================================
- */
+// Chargement du terrain
 changerTerrain();
 
 // Désactivation du clic droit sur la page
