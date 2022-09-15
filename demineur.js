@@ -91,7 +91,7 @@ let clicBoutonAux = function(cx, cy){
 		console.log(cx + "" + cy);
 		
 		// ... et si la case courante n'a aucune bombe autour d'elle...
-		if(terrain[cx][cy] == VIDE){
+		if(document.getElementById(cx + "" + cy).innerHTML == VIDE){
 			// ... on regarde celle d'au-dessus...
 			clicBoutonAux(cx-1, cy);
 			
