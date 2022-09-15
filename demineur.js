@@ -117,9 +117,9 @@ let COULEUR_CHIFFRE = "#beffc0";
  */
 let changerTerrain = function(){
 	level = document.getElementById("level").value;
-  if(level == 'facile'){x = 10; y = 10; nb_mine = 5}
-  if(level == 'moyen'){x = 15; y = 15; nb_mine = 10}
-  if(level == 'difficile'){x = 25; y = 25; nb_mine = 15}
+  if(level == 'facile'){x = 10; y = 10; nb_mine = 10}
+  if(level == 'moyen'){x = 15; y = 15; nb_mine = 15}
+  if(level == 'difficile'){x = 25; y = 25; nb_mine = 25}
 	
 	for(let i = 0; i < x; i++){
 		terrain[i] 		= new Array();
