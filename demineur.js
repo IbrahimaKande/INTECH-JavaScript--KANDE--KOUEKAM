@@ -23,18 +23,13 @@ let affTerrain 	= new Array();
 
 let continuerJeu = false;
 
-/**
- *	==========================
- *	======= CONSTANTES =======
- *	==========================
- */
 let DEFAUT 			= "N";
 let CLICK_GAUCHE 	= "G";
 let CLICK_DROIT 	= "D";
 
-let MINE 	= "&loz;";
-let VIDE 	= "&nbsp;";
-let DRAPEAU = "&times;";
+let MINE 	= "&#128169;";
+let VIDE 	= "&#129531;";
+let DRAPEAU = "&#128160;";
 
 let COULEUR_MINE 	= "#ff7f7f";
 let COULEUR_VIDE 	= "#bcc4c4";
@@ -107,14 +102,7 @@ let COULEUR_CHIFFRE = "#beffc0";
   startBtn.addEventListener("click", demarrer);
   stopBtn.addEventListener("click", arreter);
 
-/**
- *	=============================
- *	========= FONCTIONS =========
- *	=============================
- */
-/**
- *	Permet d'initialiser le terrain de jeu
- */
+// Permet d'initialiser le terrain de jeu
 let changerTerrain = function(){
 	level = document.getElementById("level").value;
   if(level == 'facile'){x = 10; y = 10; nb_mine = 10}
@@ -242,9 +230,7 @@ let clicDroitBouton = function(cx, cy){
 	testGagne();
 };
 
-/**
- *	Permet de dessiner le terrain de jeu
- */
+// Permet de dessiner le terrain de jeu
 let dessinTerrain = function(){
 	// On met à jour le plateau
 	let plateau = document.getElementById("plateau");
@@ -273,9 +259,7 @@ let dessinTerrain = function(){
 	genererMines();
 };
 
-/**
- *	Permet de générer les autres cases
- */
+// Permet de générer les autres cases
 genererAutresCases = function(){
 	for(let i = 0; i < x; i++){
 		for(let j = 0; j < y; j++){
@@ -285,10 +269,8 @@ genererAutresCases = function(){
 	}
 };
 
-/**
- *	Permet la génération des mines
- */
-genererMines = function(){
+// Permet la génération des mines
+ genererMines = function(){
 	let continuer = false;
 	
 	for(let i = 0; i < nb_mine; i++){
@@ -365,11 +347,6 @@ let testGagne = function(){
 	continuerJeu = false;
 }
 
-/**
- *	=================================
- *	===== Chargement du terrain =====
- *	=================================
- */
 changerTerrain();
 
 // Désactivation du clic droit sur la page
