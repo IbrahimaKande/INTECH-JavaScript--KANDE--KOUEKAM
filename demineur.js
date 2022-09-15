@@ -2,6 +2,21 @@ let x = 0;
 let y = 0;
 let nb_mine = 0;
 
+let chrono = document.getElementById("chrono");
+let resetBtn = document.getElementById("reset");
+let stopBtn = document.getElementById("stop");
+let startBtn = document.getElementById("start");
+
+let heures = 0;
+let minutes = 0;
+let secondes = 0;
+
+let timeout;
+
+let estArrete = true;
+let bloqueclique;
+
+
 let terrain 	= new Array();
 let affTerrain 	= new Array();
 
@@ -26,6 +41,75 @@ let COULEUR_DRAPEAU = "#87c4c2";
 let COULEUR_CHIFFRE = "#beffc0";
 
 /**
+ *	Chronometre
+ */
+ const demarrer = () => {
+    if (estArrete) {
+      estArrete = false;
+      bloqueclique = false;
+      defilerTemps();
+    }
+  };
+  
+  const arreter = () => {
+    if (!estArrete) {
+      estArrete = true;
+      bloqueclique = true;
+      clearTimeout(timeout);
+    }
+  };
+  
+  const defilerTemps = () => {
+    if (estArrete) return;
+  
+    secondes = parseInt(secondes);
+    minutes = parseInt(minutes);
+    heures = parseInt(heures);
+  
+    secondes++;
+  
+    if (secondes == 60) {
+      minutes++;
+      secondes = 0;
+    }
+  
+    if (minutes == 60) {
+      heures++;
+      minutes = 0;
+    }
+  
+    //   affichage
+    if (secondes < 10) {
+      secondes = "0" + secondes;
+    }
+  
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+  
+    if (heures < 10) {
+      heures = "0" + heures;
+    }
+  
+    chrono.textContent = `${heures}:${minutes}:${secondes}`;
+  
+    timeout = setTimeout(defilerTemps, 1000);
+  };
+  
+  const reset = () => {
+    chrono.textContent = "00:00:00";
+    estArrete = true;
+    heures = 0;
+    minutes = 0;
+    secondes = 0;
+    clearTimeout(timeout);
+  };
+  
+  startBtn.addEventListener("click", demarrer);
+  stopBtn.addEventListener("click", arreter);
+  resetBtn.addEventListener("click", reset);
+
+/**
  *	=============================
  *	========= FONCTIONS =========
  *	=============================
@@ -34,7 +118,7 @@ let COULEUR_CHIFFRE = "#beffc0";
  *	Permet d'initialiser le terrain de jeu
  */
 let changerTerrain = function(){
-	let x 		= document.getElementById("x").value;
+	x 		= document.getElementById("x").value;
 	y 		= document.getElementById("y").value;
 	nb_mine	= document.getElementById("nb_mine").value;
 	
@@ -43,8 +127,24 @@ let changerTerrain = function(){
 		affTerrain[i]	= new Array();
 	}
 	
-	dessinTerrain();
-	continuerJeu = true;
+	let dessin = true;
+	
+	if(parseInt(x) == NaN || x <= 0 || x > 11 || parseInt(y) == NaN || y <= 0 || y > 11 || parseInt(nb_mine) == NaN || nb_mine <= 0){
+		alert("Entrez des infos correctes, svp");
+		dessin = false;
+	}
+	
+	if(nb_mine > parseInt(x) * parseInt(y)){
+		alert("Tu peux pas avoir plus de mines que la taille max du plateau");
+		dessin = false;
+	}
+	
+	// Si tout est ok...
+	if(dessin){
+		// ... on dessine le terrain
+		dessinTerrain();
+		continuerJeu = true;
+	}
 };
 
 /**
@@ -52,6 +152,7 @@ let changerTerrain = function(){
  *	@param	elt	L'élément
  */
 let clicBouton = function(elt){
+
 	if(continuerJeu){
 		let ex = elt.dataset.x;
 		let ey = elt.dataset.y;
@@ -61,6 +162,8 @@ let clicBouton = function(elt){
 	
 	// On teste si le joueur a gagné
 	testGagne();
+
+
 };
 
 /**
@@ -83,7 +186,7 @@ let clicBoutonAux = function(cx, cy){
 		console.log(cx + "" + cy);
 		
 		// ... et si la case courante n'a aucune bombe autour d'elle...
-		if(document.getElementById(cx + "" + cy).innerHTML == 0){
+		if(terrain[cx][cy] == 0){
 			// ... on regarde celle d'au-dessus...
 			clicBoutonAux(cx-1, cy);
 			
