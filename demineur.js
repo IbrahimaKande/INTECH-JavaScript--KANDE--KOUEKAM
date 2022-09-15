@@ -155,8 +155,6 @@ let clicBouton = function(elt){
 	
 	// On teste si le joueur a gagné
 	testGagne();
-
-
 };
 
 /**

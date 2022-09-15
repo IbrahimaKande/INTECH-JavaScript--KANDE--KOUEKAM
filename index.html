@@ -11,29 +11,31 @@
 </head>
 
 <body>
-      <div>
-        <label for="level">Choisissez un niveau de difficulté</label> <br>
-        <select id="level">
-          <option value="facile">facile</option>
-          <option value="moyen">moyen</option>
-          <option value="difficile">difficile</option>
-        </select>
-        <br><br>
+      <div class="container">
+        <div class="level-selector">
+          <label for="level">Choisissez un niveau de difficulté</label> <br>
+          <select class="select" id="level">
+            <option value="facile">facile</option>
+            <option value="moyen">moyen</option>
+            <option value="difficile">difficile</option>
+          </select>
+          <br>
+          <button id="lancer-partie" type="button" onclick="changerTerrain()">Jouer</button>
+        </diV>
 
-        <button id="lancer-partie" type="button" onclick="changerTerrain()">Jouer</button>
-    </diV>
-
-    <div id="wrapper">
-        <div id="chrono">00:00:00</div>
-        <div id="buttons">
+        <div class="chrono" id="wrapper">
+          <br><br>
+          <div id="chrono">00:00:00</div>
+          <br>
+          <div id="buttons">
             <button id="stop" class="button">Arrêter</button>
             <button id="start" class="button">Démarrer</button>
-        </div>
-    </div> 
+            <br><br>
+          </div>
+        </div> 
 
-    <div id="plateau">
-    </div>
-   
+        <div id="plateau"></div>
+      </div>
 
     <script src="demineur.js">
     </script>

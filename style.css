@@ -1,34 +1,26 @@
+.container{
+    margin-left: 1%;
+    margin-right: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-  #wrapper {
-    padding: 100px;
-    border-radius: 30px;
-    background-color: white;
-  }
-  
-  #chrono {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 30px;
-  }
-  
-  button {
-    font-size: 5px;
-    width: 150px;
-    padding: 10px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-  }
-  
-  button:not(:last-child) {
-    margin-right: 15px;
-  }
-  
-  button:nth-child(2) {
-    background-color: #dfdfdf;
-  }
-  
-  button:last-child {
-    background-color: #3a6eff;
-    color: white;
-  }
+.level-selector{
+    margin-left: 1%;
+    margin-right: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chrono{
+    margin-left: 1%;
+    margin-right: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
