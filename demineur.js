@@ -43,24 +43,8 @@ let changerTerrain = function(){
 		affTerrain[i]	= new Array();
 	}
 	
-	let dessin = true;
-	
-	if(parseInt(x) == NaN || x <= 0 || x > 11 || parseInt(y) == NaN || y <= 0 || y > 11 || parseInt(nb_mine) == NaN || nb_mine <= 0){
-		alert("Entrez des infos correctes, svp");
-		dessin = false;
-	}
-	
-	if(nb_mine > parseInt(x) * parseInt(y)){
-		alert("Tu peux pas avoir plus de mines que la taille max du plateau");
-		dessin = false;
-	}
-	
-	// Si tout est ok...
-	if(dessin){
-		// ... on dessine le terrain
-		dessinTerrain();
-		continuerJeu = true;
-	}
+	dessinTerrain();
+	continuerJeu = true;
 };
 
 /**
@@ -99,7 +83,7 @@ let clicBoutonAux = function(cx, cy){
 		console.log(cx + "" + cy);
 		
 		// ... et si la case courante n'a aucune bombe autour d'elle...
-		if(terrain[cx][cy] == 0){
+		if(document.getElementById(cx + "" + cy).innerHTML == 0){
 			// ... on regarde celle d'au-dessus...
 			clicBoutonAux(cx-1, cy);
 			
