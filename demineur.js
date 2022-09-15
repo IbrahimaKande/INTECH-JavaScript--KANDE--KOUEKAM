@@ -3,11 +3,31 @@ let y = 0;
 let nb_mine = 0;
 let level = '';
 
+let chrono = document.getElementById("chrono");
+let resetBtn = document.getElementById("reset");
+let stopBtn = document.getElementById("stop");
+let startBtn = document.getElementById("start");
+
+let heures = 0;
+let minutes = 0;
+let secondes = 0;
+
+let timeout;
+
+let estArrete = true;
+let bloqueclique = true;
+
+
 let terrain 	= new Array();
 let affTerrain 	= new Array();
 
 let continuerJeu = false;
 
+/**
+ *	==========================
+ *	======= CONSTANTES =======
+ *	==========================
+ */
 let DEFAUT 			= "N";
 let CLICK_GAUCHE 	= "G";
 let CLICK_DROIT 	= "D";
@@ -21,11 +41,82 @@ let COULEUR_VIDE 	= "#bcc4c4";
 let COULEUR_DRAPEAU = "#87c4c2";
 let COULEUR_CHIFFRE = "#beffc0";
 
+//Chronometre
+ const demarrer = () => {
+    if (estArrete == true && continuerJeu == true) {
+      estArrete = false;
+      bloqueclique = true;
+      defilerTemps();
+    }
+  };
+  
+  const arreter = () => {
+    if (!estArrete) {
+      estArrete = true;
+      bloqueclique = false;
+      clearTimeout(timeout);
+    }
+  };
+  
+  const defilerTemps = () => {
+    if (estArrete) return;
+  
+    secondes = parseInt(secondes);
+    minutes = parseInt(minutes);
+    heures = parseInt(heures);
+  
+    secondes++;
+  
+    if (secondes == 60) {
+      minutes++;
+      secondes = 0;
+    }
+  
+    if (minutes == 60) {
+      heures++;
+      minutes = 0;
+    }
+  
+    //   affichage
+    if (secondes < 10) {
+      secondes = "0" + secondes;
+    }
+  
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+  
+    if (heures < 10) {
+      heures = "0" + heures;
+    }
+  
+    chrono.textContent = `${heures}:${minutes}:${secondes}`;
+  
+    timeout = setTimeout(defilerTemps, 1000);
+  };
+  
+  const reset = () => {
+    chrono.textContent = "00:00:00";
+    estArrete = true;
+    heures = 0;
+    minutes = 0;
+    secondes = 0;
+    clearTimeout(timeout);
+  };
+  
+  startBtn.addEventListener("click", demarrer);
+  stopBtn.addEventListener("click", arreter);
+
+/**
+ *	=============================
+ *	========= FONCTIONS =========
+ *	=============================
+ */
 /**
  *	Permet d'initialiser le terrain de jeu
  */
 let changerTerrain = function(){
-  level = document.getElementById("level").value;
+	level = document.getElementById("level").value;
   if(level == 'facile'){x = 10; y = 10; nb_mine = 5}
   if(level == 'moyen'){x = 15; y = 15; nb_mine = 10}
   if(level == 'difficile'){x = 25; y = 25; nb_mine = 15}
@@ -35,8 +126,18 @@ let changerTerrain = function(){
 		affTerrain[i]	= new Array();
 	}
 	
-	dessinTerrain();
-	continuerJeu = true;
+	let dessin = true;
+	
+	// Si tout est ok...
+	if(dessin){
+		// ... on dessine le terrain
+		dessinTerrain();
+		continuerJeu = true;
+	}
+
+  document.getElementById("lancer-partie").addEventListener("click", reset);
+  document.getElementById("lancer-partie").addEventListener("click", demarrer);
+  
 };
 
 /**
@@ -44,7 +145,8 @@ let changerTerrain = function(){
  *	@param	elt	L'élément
  */
 let clicBouton = function(elt){
-	if(continuerJeu){
+
+	if(continuerJeu == true && bloqueclique == true){
 		let ex = elt.dataset.x;
 		let ey = elt.dataset.y;
 		
@@ -53,6 +155,8 @@ let clicBouton = function(elt){
 	
 	// On teste si le joueur a gagné
 	testGagne();
+
+
 };
 
 /**
@@ -75,7 +179,7 @@ let clicBoutonAux = function(cx, cy){
 		console.log(cx + "" + cy);
 		
 		// ... et si la case courante n'a aucune bombe autour d'elle...
-		if(document.getElementById(cx + "" + cy).innerHTML == 0){
+		if(terrain[cx][cy] == 0){
 			// ... on regarde celle d'au-dessus...
 			clicBoutonAux(cx-1, cy);
 			
@@ -104,6 +208,7 @@ let clicBoutonAux = function(cx, cy){
 		else if(terrain[cx][cy] == MINE){
 			document.getElementById(cx + "" + cy).style.backgroundColor = COULEUR_MINE;
 			alert("BOOM ! Lance un nouveau jeu !");
+      arreter()
 			continuerJeu = false;
 		}
 	}
@@ -116,7 +221,7 @@ let clicBoutonAux = function(cx, cy){
  */
 let clicDroitBouton = function(cx, cy){
 	// Si on peut continuer le jeu et que la case n'a pas déjà été cochée...
-	if(continuerJeu && affTerrain[cx][cy] != "0"){
+	if(continuerJeu == true && affTerrain[cx][cy] != "0" && bloqueclique == true){
 		let elt = document.getElementById(cx + "" + cy);
 		
 		// ... et qu'il y a déjà eu un clic droit...
@@ -262,7 +367,11 @@ let testGagne = function(){
 	continuerJeu = false;
 }
 
-// Chargement du terrain
+/**
+ *	=================================
+ *	===== Chargement du terrain =====
+ *	=================================
+ */
 changerTerrain();
 
 // Désactivation du clic droit sur la page

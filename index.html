@@ -1,36 +1,41 @@
 <html>
-	<head>
-		<title>Démineur</title>
-		<meta charset="utf8" />
-	</head>
 
-	<body>
-    <div id="overview">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=
+    , initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Démineur</title>
+    <meta charset="utf8" />
+</head>
+
+<body>
       <div>
-          <label for="level">Choisissez un niveau de difficulté</label> <br>
-          <select id="level">
-            <option value="facile">facile</option>
-            <option value="moyen">moyen</option>
-            <option value="difficile">difficile</option>
-          </select>
-          <br><br>
+        <label for="level">Choisissez un niveau de difficulté</label> <br>
+        <select id="level">
+          <option value="facile">facile</option>
+          <option value="moyen">moyen</option>
+          <option value="difficile">difficile</option>
+        </select>
+        <br><br>
 
-          <button id="start" type="button" onclick="changerTerrain()">Jouer</button>
-      </diV>
-      <br>
-      
-      <div id="plateau">
-      </div>
+        <button id="lancer-partie" type="button" onclick="changerTerrain()">Jouer</button>
+    </diV>
+
+    <div id="wrapper">
+        <div id="chrono">00:00:00</div>
+        <div id="buttons">
+            <button id="stop" class="button">Arrêter</button>
+            <button id="start" class="button">Démarrer</button>
+        </div>
+    </div> 
+
+    <div id="plateau">
     </div>
-		
-		<script src="demineur.js">
-		</script>
-	</body>
-</html>
+   
 
-<style>
-.overview{
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
+    <script src="demineur.js">
+    </script>
+</body>
+</html>
